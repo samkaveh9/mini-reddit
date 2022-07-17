@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommunityRequest;
-use App\Models\Commuity;
 use App\Models\Community;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -41,27 +40,27 @@ class CommunityController extends Controller
     {
         $community = Community::create($request->validated() + ['user_id' => auth()->id()]);
         $community->topics()->sync($request->topics);
-        return redirect(route('communities.show'));
+        return redirect(route('communities.show', $community->slug));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Commuity  $commuity
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function show(Commuity $commuity)
+    public function show(Community $community)
     {
-        return $commuity->name;
+        return view('communities.show', compact('community'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Commuity  $commuity
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function edit(Commuity $commuity)
+    public function edit(Community $community)
     {
         //
     }
@@ -70,10 +69,10 @@ class CommunityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Commuity  $commuity
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Commuity $commuity)
+    public function update(Request $request, Community $community)
     {
         //
     }
@@ -81,10 +80,10 @@ class CommunityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Commuity  $commuity
+     * @param  \App\Models\Community  $community
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Commuity $commuity)
+    public function destroy(Community $community)
     {
         //
     }
